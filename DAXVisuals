@@ -1,0 +1,40 @@
+
+SelectedMonthCount = var a = "  " & SELECTEDVALUE(WarehouseActivity[Date].[Month],"")
+var  b = [Average]
+var c =SELECTEDVALUE(WarehouseActivity[Date].[Year],"")
+RETURN
+IF(ISBLANK(a),"None",a)& " "& " " &c
+
+SelectedValueWareHouse = var a = SELECTEDVALUE(WarehouseActivity[Warehouse],"")
+var b = SELECTEDVALUE(WarehouseActivity[Type],"")
+var c = [Average]
+RETURN
+IF(ISBLANK(a),"",a)
+
+Userselect = var x = "Types: "&SELECTEDVALUE(WarehouseActivity[User],"")
+var y = " " & SELECTEDVALUE(WarehouseActivity[Type],"All")
+RETURN
+IF(ISBLANK(","),"Total",x&y)
+
+ByMonth = var month = SELECTEDVALUE(ColumbusSales[Month].[Month])
+RETURN "Month: "& IF(ISBLANK(month), "All",month)
+
+
+2019 = CALCULATE(SUM(ColumbusSales[ExtPrice]),FILTER(ColumbusSales,[Year]=2019))
+2018 = CALCULATE(SUM(ColumbusSales[ExtPrice]),FILTER(ColumbusSales,[Year]=2018))
+CasesShipped2018 = CALCULATE(SUM(ColumbusSales[CasesShipped]),ColumbusSales[Year]=2018)
+CasesShipped2019 = CALCULATE(SUM(ColumbusSales[CasesShipped]),ColumbusSales[Year]=2019)
+
+Ifselect = VAR one = SELECTEDVALUE(ColumbusSales[Month], "All months")
+ RETURN
+ IF(ISBLANK(one), one,one)
+
+ MonthDifferenceBYear = var month = SELECTEDVALUE(ColumbusSales[Month].[Month])
+var difference = [Differences]
+RETURN
+IF(ISBLANK(month),"",CALCULATE(SUM([ExtPrice]),ColumbusSales[Year]=2018)-CALCULATE(SUM(ColumbusSales[ExtPrice]),ColumbusSales[Year]=2019))
+
+Selected Year = var selectedyear = SELECTEDVALUE(ColumbusSales[Year])
+Return "Year:" & " "  & IF(ISBLANK(selectedyear), "2018-2019",selectedyear)
+
+
